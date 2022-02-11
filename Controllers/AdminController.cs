@@ -28,6 +28,14 @@ namespace Cinema.Controllers
         }
 
         [HttpGet]
+        public IActionResult ListUsers()
+        {
+            var users = _userManager.Users.OrderBy(x => x.UserName).ToList();
+
+            return View(users);
+        }
+
+        [HttpGet]
         public IActionResult ListRoles()
         {
             var roles = _roleManager.Roles.ToList();

@@ -86,6 +86,11 @@ namespace Cinema.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    if (_signInManager.IsSignedIn(User) && User.IsInRole("admin"))
+                    {
+                        return RedirectToAction("ListUsers", "Admin");
+                    }
+
                     await _userManager.AddToRoleAsync(user, role.Name);
 
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
