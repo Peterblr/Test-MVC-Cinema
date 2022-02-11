@@ -1,0 +1,96 @@
+﻿@using Cinema.Tools;
+
+@model IEnumerable<Cinema.Models.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+
+
+    Pager pager = ViewBag.Pager;
+
+    SortModel sortModel = (SortModel)ViewData["sortModel"];
+}
+
+<h1>Index</h1>
+
+<partial name="_pager" model="@pager" />
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="col-4 p-0 justify-content-center mt-1">
+    <form class="form-inline my-2 my-lg-0 " asp-controller="Movie" asp-action="Index">
+        <input name="searchText"
+               type="text"
+               class="form-control"
+               placeholder="Search"
+               value="@ViewBag.searchText" />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @*<i class="@ViewData["SortIconFullName"]" aria-hidden="true"></i>*@
+                @*<a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamFullName"]">*@
+
+                <i class="@sortModel.GetColumn("title").SortIcon" aria-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("title").SortExpression">
+                    @Html.DisplayNameFor(model => model.Title)
+                </a>
+            </th>
+
+            <th>
+                @*<i class="@ViewData["SortIconBio"]" aria-hidden="true"></i>*@
+                @*<a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamBio"]">*@
+
+                <i class="@sortModel.GetColumn("actor").SortIcon" aria-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("actor").SortExpression">
+                    @Html.DisplayNameFor(model => model.Actors)
+                </a>
+            </th>
+
+            <th>
+                @*<i class="@ViewData["SortIconBio"]" aria-hidden="true"></i>*@
+                @*<a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamBio"]">*@
+
+                <i class="@sortModel.GetColumn("description").SortIcon" aria-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("description").SortExpression">
+                    @Html.DisplayNameFor(model => model.Description)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+
+        <tbody>
+            <tr>
+                <td>
+                    <img class="rounded-pill" src="@item.ImageUrl" alt="@item.Title" style="max-width: 80px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Actors.FullName)
+                </td>
+
+                <td style="max-width: 300px">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
