@@ -7,7 +7,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Actor</h4>
+    <h4>Movie</h4>
     <hr />
 
     <div class="row flex-nowrap">
@@ -34,6 +34,18 @@
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.Description)
                 </dd>
+                <dt class="col-sm-2">
+                    Grade
+                </dt>
+                <div class="form-group">
+                    <span class="text-warning">
+                        <i class="ratingStar fas fa-star"></i>
+                        <i class="ratingStar far fa-star"></i>
+                        <i class="ratingStar far fa-star"></i>
+                        <i class="ratingStar far fa-star"></i>
+                        <i class="ratingStar far fa-star"></i>
+                    </span>
+                </div>
             </dl>
         </div>
     </div>
@@ -41,10 +53,48 @@
 </div>
 <div class="form-group">
     <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
-    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@Model.Id">
+    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@Model.MovieId">
         <i class="bi bi-pencil-square"></i>Edit
     </a>
 </div>
+
+@*@if (User.Identity.IsAuthenticated)
+    {
+        <div>
+            <form asp-controller="Movie" asp-action="WriteComment">
+                <input asp-for="MovieId" readonly hidden />
+                <div class="form-group">
+                    <label for="comment">Comment</label>
+                    <textarea asp-for="Comments" class="form-control" rows="3" required></textarea>
+                    <button type="submit" class="btn btn-outline-primary post-btn">Post</button>
+                </div>
+            </form>
+        </div>
+    }
+    else
+    {
+        <a class="reply-btn btn" asp-area="Identity" asp-page="/Account/Login" asp-route-ReturnUrl="~/Post/@Model.MovieId">Login to Comment on this Post</a>
+    }*@
+
+@*<div class="card">
+        <div class="card-header">
+            Featured
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <hr />
+            <form>
+                <div class="form-group">
+                    <label>Write comment</label>
+                    <textarea class="form-control" name="Comment" placeholder="Write comment" rows="3"></textarea>
+                </div>
+                <button class="btn btn-success">Send</button>
+            </form>
+        </div>
+    </div>*@
+
+<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -53,6 +103,14 @@
             var output = document.getElementById('ImagePreview');
             output.src = $("#ImageUrl").val();
         })
+    </script>
+    <script>
+        $(".ratingStar").hover(function () {
+            $(".ratingStar").addClass("far").removeClass("fas");
+
+            $(this).addClass("fas").removeClass("far");
+            $(this).prevAll(".ratingStar").addClass("fas").removeClass("far");
+        });
     </script>
 }
 

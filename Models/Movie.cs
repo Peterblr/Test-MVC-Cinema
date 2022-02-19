@@ -10,7 +10,7 @@ namespace Cinema.Models
     public class Movie
     {
         [Key]
-        public int Id { get; set; }
+        public int MovieId { get; set; }
 
         [Required(ErrorMessage = "Title is required")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Title cannot be longer than 50 characters and less 3.")]
@@ -27,5 +27,8 @@ namespace Cinema.Models
         [ForeignKey("Actors")]
         public int ActorId { get; set; }
         public virtual Actor Actors { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+
+
     }
 }

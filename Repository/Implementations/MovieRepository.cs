@@ -10,14 +10,16 @@ using System.Threading.Tasks;
 
 namespace Cinema.Repository.Implementations
 {
-    public class MovieService : IMovie
+    public class MovieRepository : IMovie
     {
         private readonly AppDbContext _context;
 
-        public MovieService(AppDbContext context)
+        public MovieRepository(AppDbContext context)
         {
             _context = context;
         }
+
+
 
         public Movie Add(Movie movie)
         {
@@ -37,8 +39,9 @@ namespace Cinema.Repository.Implementations
 
         public Movie GetById(int id)
         {
-            Movie movie = _context.Movies.Where(a => a.Id == id)
+            Movie movie = _context.Movies.Where(a => a.MovieId == id)
                 .Include(a => a.Actors)
+                .Include(c => c.Comments)
                 .FirstOrDefault();
 
             return movie;
@@ -111,5 +114,21 @@ namespace Cinema.Repository.Implementations
 
             return movie;
         }
+
+        public Comment GetComment(int commentId)
+        {
+            return _context.Comments
+                .Include(c => c.CommentItem)
+                .FirstOrDefault(c => c.CommentId == commentId);
+        }
+
+        public Comment Add(Comment comment)
+        {
+            _context.Comments.Add(comment);
+            _context.SaveChanges();
+
+            return comment;
+        }
+
     }
 }

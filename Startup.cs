@@ -37,9 +37,9 @@ namespace Cinema
                 .AddEntityFrameworkStores<AppDbContext>();
 
 
-            services.AddScoped<IActor, ActorService>();
-            services.AddScoped<IProducer, ProducerService>();
-            services.AddScoped<IMovie, MovieService>();
+            services.AddScoped<IActor, ActorRepository>();
+            services.AddScoped<IProducer, ProducerRepository>();
+            services.AddScoped<IMovie, MovieRepository>();
 
             services.AddControllersWithViews();
 

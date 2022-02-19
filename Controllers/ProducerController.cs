@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Cinema.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProducerController : Controller
     {
 

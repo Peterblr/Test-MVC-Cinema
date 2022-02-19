@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Cinema.Repository.Implementations
 {
-    public class ProducerService : IProducer
+    public class ProducerRepository : IProducer
     {
         private readonly AppDbContext _context;
 
-        public ProducerService(AppDbContext context)
+        public ProducerRepository(AppDbContext context)
         {
             _context = context;
         }

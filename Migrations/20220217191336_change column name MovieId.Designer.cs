@@ -4,14 +4,16 @@ using Cinema.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Cinema.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220217191336_change column name MovieId")]
+    partial class changecolumnnameMovieId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,26 +72,6 @@ namespace Cinema.Migrations
                     b.HasIndex("MovieId");
 
                     b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("Cinema.Models.Grade", b =>
-                {
-                    b.Property<int>("GradeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("GradeValue")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GradeId");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("Cinema.Models.Movie", b =>
@@ -351,17 +333,6 @@ namespace Cinema.Migrations
                 {
                     b.HasOne("Cinema.Models.Movie", "Movie")
                         .WithMany("Comments")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
-                });
-
-            modelBuilder.Entity("Cinema.Models.Grade", b =>
-                {
-                    b.HasOne("Cinema.Models.Movie", "Movie")
-                        .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

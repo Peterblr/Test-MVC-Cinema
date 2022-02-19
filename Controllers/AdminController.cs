@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cinema.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;

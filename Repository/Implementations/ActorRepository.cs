@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Cinema.Repository.Implementations
 {
-    public class ActorService : IActor
+    public class ActorRepository : IActor
     {
         private readonly AppDbContext _context;
 
-        public ActorService(AppDbContext context)
+        public ActorRepository(AppDbContext context)
         {
             _context = context;
         }
@@ -47,7 +47,7 @@ namespace Cinema.Repository.Implementations
         //    return _context.Actors.ToList();
         //}
 
-        private List<Actor> DoSort(List<Actor> actors, string sortProperty, SortOrder sortOrder)
+        private static List<Actor> DoSort(List<Actor> actors, string sortProperty, SortOrder sortOrder)
         {
             //List<Actor> actors = _context.Actors.ToList();
 
